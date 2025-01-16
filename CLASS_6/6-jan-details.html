@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button a:active {
+            background-color: #00408a;
+            transform: scale(0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button a:active {
+            background-color: #00408a;
+            transform: scale(0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            disabled: true;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            disabled: true;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .lock-container {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Student Information Table</h2>
+    <div class="back-button">
+        <a href="6-month.html">Go Back</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Adm No</th>
+            <th>Name</th>
+            <th>Page</th>
+            <th>Opage</th>
+        </tr>
+        <tr>
+            <td>101</td>
+            <td>John Doe</td>
+            <td id="page-101"></td>
+            <td id="opage-101"></td>
+        </tr>
+        <tr>
+            <td>102</td>
+            <td>Jane Smith</td>
+            <td id="page-102"></td>
+            <td id="opage-102"></td>
+        </tr>
+        <tr>
+            <td>103</td>
+            <td>Michael Lee</td>
+            <td id="page-103"></td>
+            <td id="opage-103"></td>
+        </tr>
+    </table>
+
+    <div class="lock-container">
+        <h3>Admin Login</h3>
+        <label for="password">Enter Password to Edit Data:</label>
+        <input type="password" id="password" placeholder="Enter admin password">
+        <button onclick="unlockForm()">Unlock Form</button>
+        <div id="error-message" class="error"></div>
+    </div>
+
+    <div class="form-container" id="student-form" style="display:none;">
+        <h3>Update Student Page & Opage</h3>
+        <label for="admNo">Select Student Adm No:</label>
+        <select id="admNo">
+            <option value="101">101 - John Doe</option>
+            <option value="102">102 - Jane Smith</option>
+            <option value="103">103 - Michael Lee</option>
+        </select>
+
+        <label for="page">Enter Page:</label>
+        <input type="text" id="page" placeholder="Enter Page details">
+
+        <label for="opage">Enter Opage:</label>
+        <input type="text" id="opage" placeholder="Enter Opage details">
+
+        <button onclick="updateStudentInfo()">Save</button>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = "admin123"; // You can change this password
+
+        // Load student data from localStorage and display it
+        function loadStudentData() {
+            for (let i = 101; i <= 103; i++) {
+                const page = localStorage.getItem('page-' + i) || '';
+                const opage = localStorage.getItem('opage-' + i) || '';
+
+                document.getElementById('page-' + i).innerText = page;
+                document.getElementById('opage-' + i).innerText = opage;
+            }
+        }
+
+        // Function to update the student's Page and Opage data
+        function updateStudentInfo() {
+            const admNo = document.getElementById('admNo').value;
+            const page = document.getElementById('page').value;
+            const opage = document.getElementById('opage').value;
+
+            // Save the updated values to localStorage
+            localStorage.setItem('page-' + admNo, page);
+            localStorage.setItem('opage-' + admNo, opage);
+
+            // Refresh the displayed data
+            loadStudentData();
+
+            // Clear the input fields
+            document.getElementById('page').value = '';
+            document.getElementById('opage').value = '';
+        }
+
+        // Function to unlock the form if the correct password is provided
+        function unlockForm() {
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('student-form').style.display = 'block';
+                errorMessage.innerText = '';
+            } else {
+                errorMessage.innerText = 'Incorrect password. Please try again.';
+            }
+        }
+
+        // Load the data on page load
+        window.onload = loadStudentData;
+    </script>
+
+</body>
+</html>
+
+<body>
+
+    <h2>Student Information Table</h2>
+    <div class="back-button">
+        <a href="6-month.html">Go Back</a>
+    </div>
+<STUDENTS>
+    <table>
+        <tr>
+            <th>Adm No</th>
+            <th>Name</th>
+            <th>Page</th>
+            <th>Opage</th>
+        </tr>
+        <tr>
+            <td>101</td>
+            <td>John Doe</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>102</td>
+            <td>Jane Smith</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>103</td>
+            <td>Michael Lee</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+</STUDENTS>
+
+</body>
+</html>
+
+
+
